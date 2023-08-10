@@ -1,14 +1,23 @@
 import React from 'react';
 import {FlatList, RefreshControl, StyleSheet} from 'react-native';
-import listData from '../../../recoil/getData';
-import AppStyles from '../../../theme/appStyles';
-import OrderItem from './OrderItem';
 import {useRecoilState} from 'recoil';
-import Colors from '../../../theme/colors';
+import OrderItem from './OrderItem';
+import listData from '../../../recoil/getData';
+import pageData from '../../../recoil/getPage';
+import listDataFilter from '../../../recoil/getDataFilter';
+import AppStyles from '../../../theme/appStyles';
+import getPokemonList from '../../../fetchApi/getPokemonList';
+import useComposeData from '../../../hook/useComposeData';
 
 const OrderListHome = () => {
   const [isRefreshing, setIsRefreshing] = React.useState(false);
   const [data, setData] = useRecoilState(listData);
+  const [page, _setPage] = useRecoilState(pageData);
+  const [pageTemp, setPageTemp] = React.useState({
+    limit: page.limit,
+    offset: page.offset,
+  });
+  const [dataFilter, _setDataFilter] = useRecoilState(listDataFilter);
 
   const onRefresh = React.useCallback(() => {
     setIsRefreshing(true);
@@ -16,6 +25,26 @@ const OrderListHome = () => {
       setIsRefreshing(false);
     }, 1000);
   }, []);
+
+  const {composeData, temData} = useComposeData();
+
+  const getDataTemp = () => {
+    const margeData = [...data, ...temData];
+    setData(margeData);
+  };
+
+  const appendData = async () => {
+    const movePage = {
+      limit: 8,
+      offset: pageTemp.offset + 8,
+    };
+    const dataResult = await getPokemonList(movePage);
+    setPageTemp(movePage);
+    await composeData(dataResult?.results);
+    getDataTemp();
+  };
+
+  const showData = dataFilter?.isFilter ? dataFilter?.dataFilter : data;
 
   return (
     <FlatList
@@ -25,10 +54,11 @@ const OrderListHome = () => {
         <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
       }
       contentContainerStyle={styles.container}
-      data={data}
+      data={showData}
       renderItem={({item, index}) => <OrderItem item={item} index={index} />}
       numColumns={2}
       showsVerticalScrollIndicator={false}
+      onEndReached={() => appendData()}
     />
   );
 };
@@ -36,6 +66,9 @@ const OrderListHome = () => {
 const styles = StyleSheet.create({
   container: {
     ...AppStyles.flatListContainer,
+  },
+  spinnerContainer: {
+    marginVertical: 20,
   },
 });
 

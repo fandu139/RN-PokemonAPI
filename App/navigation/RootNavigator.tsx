@@ -14,12 +14,7 @@ import Header from '../uikit/Header';
 const Root = createNativeStackNavigator();
 
 function RootNavigator(): ReactElement {
-  const defaultHeaderOptions = {
-    headerStyle: {
-      backgroundColor: Colors.YELLOW10,
-    },
-    headerTintColor: Colors.WHITE,
-  };
+  const defaultHeaderOptions = {};
 
   return (
     <Root.Navigator
@@ -37,7 +32,7 @@ function RootNavigator(): ReactElement {
                   size={16}
                   color={Colors.WHITE}
                   name={ICON_BACK_ARROW}
-                  onPress={navigation.canGoBack}
+                  onPress={navigation.goBack}
                   testID="header-back-button"
                 />
               }
@@ -52,7 +47,7 @@ function RootNavigator(): ReactElement {
         component={HomeScreen}
       />
       <Root.Screen
-        options={{headerShown: true, title: ''}}
+        options={{title: 'Detail Screen'}}
         name="DetailScreen"
         component={DetailScreen}
       />
