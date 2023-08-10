@@ -1,11 +1,29 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import HomeHeader from './components/HomeHeader';
 import Colors from '../../theme/colors';
 import OrderListHome from './components/OrderListHome';
 import Text from '../../uikit/Text';
+import getPokemonList from '../../fetchApi/getPokemonList';
+import useComposeData from '../../hook/useComposeData';
+import listData from '../../recoil/getData';
+import {useRecoilState} from 'recoil';
 
 const HomeScreen = () => {
+  const [dataCollection, setDataCollection] = useState([]);
+  const [data, setData] = useRecoilState(listData);
+
+  useEffect(() => {
+    const getDataPokemon = async () => {
+      const dataResult = await getPokemonList();
+      setDataCollection(dataResult?.results);
+    };
+
+    getDataPokemon();
+  }, []);
+
+  useComposeData(dataCollection);
+
   return (
     <View
       style={styles.container}
