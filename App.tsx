@@ -9,6 +9,8 @@ import React, {useRef, useState} from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {NavigationState} from '@react-navigation/core';
+import {RecoilRoot} from 'recoil';
+
 import {navigationRef} from './App/helper/navigation';
 
 import AppSplashScreen from './App/screens/Splash';
@@ -42,22 +44,24 @@ function App(): JSX.Element {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <NavigationContainer
-        ref={navigationRef}
-        onReady={() => {
-          routeNameRef.current =
-            navigationRef?.current?.getCurrentRoute()?.name;
-        }}
-        onStateChange={state => {
-          const {name: currentRouteName} = getActiveRoute(
-            state as NavigationState,
-          );
-          routeNameRef.current = currentRouteName;
-        }}>
-        <RootNavigator />
-      </NavigationContainer>
-    </SafeAreaView>
+    <RecoilRoot>
+      <SafeAreaView style={styles.container}>
+        <NavigationContainer
+          ref={navigationRef}
+          onReady={() => {
+            routeNameRef.current =
+              navigationRef?.current?.getCurrentRoute()?.name;
+          }}
+          onStateChange={state => {
+            const {name: currentRouteName} = getActiveRoute(
+              state as NavigationState,
+            );
+            routeNameRef.current = currentRouteName;
+          }}>
+          <RootNavigator />
+        </NavigationContainer>
+      </SafeAreaView>
+    </RecoilRoot>
   );
 }
 

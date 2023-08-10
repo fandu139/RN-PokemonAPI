@@ -4,7 +4,7 @@ import FastImage from 'react-native-fast-image';
 import AppStyles from '../../../theme/appStyles';
 import Colors from '../../../theme/colors';
 import {navigate} from '../../../helper/navigation';
-import { getTypeCalor } from '../../../helper/typeColor';
+import {getTypeCalor} from '../../../helper/typeColor';
 
 type Props = {
   item: {

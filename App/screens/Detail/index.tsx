@@ -8,7 +8,7 @@
 import React from 'react';
 import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {ProgressBar} from '@react-native-community/progress-bar-android';
-import {StackScreenProps} from '@react-navigation/stack';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import FastImage from 'react-native-fast-image';
 import Colors from '../../theme/colors';
 import Fonts from '../../theme/fonts';
@@ -39,7 +39,7 @@ type RootStackParamList = {
   DetailScreen: RouteParams;
 };
 
-type Props = StackScreenProps<RootStackParamList, 'DetailScreen'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'DetailScreen'>;
 
 const DetailScreen: React.FC<Props> = ({route}: Props) => {
   const {image, name, type, height, weight, base_experience} = route?.params;
@@ -65,9 +65,9 @@ const DetailScreen: React.FC<Props> = ({route}: Props) => {
           <Text style={styles.textPokeonName}>{name}</Text>
         </View>
         <View>
-          {mapData.map(item => {
+          {mapData.map((item, index) => {
             return (
-              <View style={styles.containerProgressBar}>
+              <View key={index} style={styles.containerProgressBar}>
                 <Text>{item?.name}</Text>
                 <ProgressBar
                   styleAttr="Horizontal"
