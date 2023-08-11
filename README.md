@@ -1,79 +1,103 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Surplus-Task
 
-# Getting Started
+Made with React Native
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+Tech Features:
+1. React Native0.72.3
+2. Typescript 4.8.4
+3. React Navigation 
+4. React Native Vector Icons --> i'm use to display icons
+5. React Native Fast Image --> i'm use to display image
+6. Recoil --> i'm use to state manegement
 
-## Step 1: Start the Metro Server
+## Hooks and APIs Implementation
+- [X] useCallback
+- [X] useEffect
+- [X] useRef
+- [X] useState
+- [X] memo --> i'm use on this file `App/screens/Home/components/PokemonItem.tsx`
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+## Setup Environment
+First, setup your environment by following this guide on https://reactnative.dev/docs/environment-setup
 
-To start Metro, run the following command from the _root_ of your React Native project:
-
-```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
+## Clone Project
+```
+git clone
+cd 
+npm install
 ```
 
-## Step 2: Start your Application
+## Structure
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
-
-```bash
-# using npm
-npm run android
-
-# OR using Yarn
-yarn android
+```
+App
+├── assets
+│   ├── icon // for icon storage
+│   └── image // for image storage. ex : png, jeg, etc
+├── fetchApi // for adapter when hit API
+├── helper
+|   ├── typeColor 
+│   └── navigation
+├── hook
+├── navigation
+├── recoil
+├── screens
+│   ├── Detail
+│   └── Home
+│   └── Splash
+├── theme // for global style on app
+├── uikit
+│   └── Header
+│   └── Icon
+│   └── Spinner
+│   └── Text
 ```
 
-### For iOS
+## Testing
+We have two kind of test: unit test and snapshot test.
+For unit test and snapshot, we will use `jest` with react native.
 
-```bash
-# using npm
-npm run ios
+Every unit test must be placed under corresponding feature you want to add test and create `__test__` folder.
+Every component should have snapshot test.
 
-# OR using Yarn
-yarn ios
-```
+if you want to running unit testing, you can run this command `npm run test`
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+## Icon & Image
+We use icomoon for converting svg icon into `.ttf` so you don't need to use png file for icon.
+Icomoon can be accessed here: https://icomoon.io/
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+## Feature on App
+### Pokémon List Page
+- [X] it has list of Pokémon
+- [X] it can be searched by its name
+- [X] contain infinity scroll
+- [X] it has 2 column for each row
+- [X] get 8 Pokémon every fetch new page
 
-## Step 3: Modifying your App
+### Detail Pokémon Page
+- [X] it has information sprites front, back & shiny
+- [X] it has information height & weight
+- [X] it has information types
+- [] it has information chain evolve
+- [] it has information move max 10
 
-Now that you have successfully run the app, let's modify it.
+## Video Demo
+Look vidoe demo this link https://www.awesomescreenshot.com/video/19859586?key=ce30d59a3261e680c2c307d0fda790a2
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+## Additional Requirement
+### Pokémon List Page
+- [X] You must use React Native
+- [X] You must use typescript
+- [X] You must obtain data from https://pokeapi.co/docs/v2 using API call
+- [X] You must NOT use utility library such as lodash, ramda, etc,
+- [X] You must create one reusable custom hooks (This File `App/hook`)
+- [X] You must use a navigation library
+- [X] You must use recoil as state management library (This File `App/recoil`)
+- [X] You must minimized render times
+- [X] You must add unit test for component and function 
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+### List Testing Coverage
+| Type Testing | Location FIle |
+| ----------------------- | ----------------------------------- |
+| Snapshoot Test | App/uikit/*|
+| Function Test | App/helper/typeColor |

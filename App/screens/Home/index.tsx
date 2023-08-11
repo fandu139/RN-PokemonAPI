@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
 import HomeHeader from './components/HomeHeader';
 import Colors from '../../theme/colors';
-import OrderListHome from './components/OrderListHome';
+import OrderListHome from './components/PokemonListHome';
 import Text from '../../uikit/Text';
 import getPokemonList from '../../fetchApi/getPokemonList';
 import useComposeData from '../../hook/useComposeData';
@@ -21,7 +21,7 @@ const HomeScreen = () => {
   const [_dataFilter, setDataFilter] = useRecoilState(listDataFilter);
   const [searchByFilter, setSearchByFilter] = React.useState('');
 
-  const {composeData, temData, getDataPokemontByPokemonName} = useComposeData();
+  const {composeData, temData} = useComposeData();
 
   useEffect(() => {
     const getDataPokemon = async () => {
