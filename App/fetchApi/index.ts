@@ -48,16 +48,6 @@ const fetchActionAPI = async ({
     );
 
     if (!response.ok) {
-      if (response.status === 401) {
-        try {
-          await signOut({
-            redirect: true,
-            callbackUrl: '/',
-          });
-        } catch (error) {
-          console.log(error);
-        }
-      }
       throw new Error(`Error! status: ${response.status}`);
     }
 
@@ -65,7 +55,10 @@ const fetchActionAPI = async ({
 
     return result;
   } catch (err) {
-    console.log(err);
+    return {
+      errorMessage: err,
+      errorStatus: true,
+    };
   }
 };
 

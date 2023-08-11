@@ -21,7 +21,7 @@ const HomeScreen = () => {
   const [_dataFilter, setDataFilter] = useRecoilState(listDataFilter);
   const [searchByFilter, setSearchByFilter] = React.useState('');
 
-  const {composeData, temData} = useComposeData();
+  const {composeData, temData, getDataPokemontByPokemonName} = useComposeData();
 
   useEffect(() => {
     const getDataPokemon = async () => {
@@ -41,7 +41,7 @@ const HomeScreen = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [temData]);
 
-  const filtedData = (textSearch: string) => {
+  const filtedData = async (textSearch: string) => {
     const result = data.filter(value =>
       value.name.search(textSearch.toLowerCase()) >= 0 ? true : false,
     );
