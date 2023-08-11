@@ -14,7 +14,7 @@ const useComposeData = () => {
     try {
       const dataResult = await getPokemonDetail({url: getUrl});
 
-      if (!!dataResult?.errorStatus) {
+      if (dataResult?.errorStatus) {
         throw new Error();
       }
 
@@ -63,16 +63,9 @@ const useComposeData = () => {
     });
   };
 
-  const getDataPokemontByPokemonName = async (url: string) => {
-    const getData = await getDataPokemonDetail(url);
-    console.log('getData', getData)
-    return getData;
-  };
-
   return {
     composeData,
     temData,
-    getDataPokemontByPokemonName,
   };
 };
 

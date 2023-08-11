@@ -1,7 +1,7 @@
 import React from 'react';
 import {FlatList, RefreshControl, StyleSheet} from 'react-native';
 import {useRecoilState} from 'recoil';
-import OrderItem from './OrderItem';
+import OrderItem from './PokemonItem';
 import listData from '../../../recoil/getData';
 import pageData from '../../../recoil/getPage';
 import listDataFilter from '../../../recoil/getDataFilter';
@@ -19,14 +19,23 @@ const OrderListHome = () => {
   });
   const [dataFilter, _setDataFilter] = useRecoilState(listDataFilter);
 
+  const {composeData, temData} = useComposeData();
+
+  const getDataPokemon = async () => {
+    const dataResult = await getPokemonList({
+      limit: 8,
+      offset: 0,
+    });
+    composeData(dataResult?.results);
+  };
+
   const onRefresh = React.useCallback(() => {
     setIsRefreshing(true);
+    getDataPokemon();
     setTimeout(() => {
       setIsRefreshing(false);
     }, 1000);
   }, []);
-
-  const {composeData, temData} = useComposeData();
 
   const getDataTemp = () => {
     const margeData = [...data, ...temData];
