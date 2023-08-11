@@ -8,7 +8,6 @@ const getUserReferralAll = async ({
   limit: number;
   offset: number;
 }) => {
-  console.log('fandu', `pokemon?limit=${limit}&offset=${offset}`);
   try {
     const result = await fetchActionAPI({
       url: `pokemon?limit=${limit}&offset=${offset}`,

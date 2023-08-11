@@ -33,6 +33,11 @@ type RouteParams = {
     value: number;
     color: string;
   };
+  sprites: {
+    front_default: string;
+    back_default: string;
+    front_shiny: string;
+  };
 };
 
 type RootStackParamList = {
@@ -42,8 +47,10 @@ type RootStackParamList = {
 type Props = NativeStackScreenProps<RootStackParamList, 'DetailScreen'>;
 
 const DetailScreen: React.FC<Props> = ({route}: Props) => {
-  const {image, name, type, height, weight, base_experience} = route?.params;
+  const {image, name, type, height, weight, base_experience, sprites} =
+    route?.params;
   const mapData = [height, weight, base_experience];
+  const mapSpirites = Object.values(sprites);
   const orderConfig = getTypeCalor(type);
 
   return (
@@ -64,7 +71,50 @@ const DetailScreen: React.FC<Props> = ({route}: Props) => {
           />
           <Text style={styles.textPokeonName}>{name}</Text>
         </View>
-        <View>
+        <View style={styles.containerPositionImage}>
+          {mapSpirites.map((item, index) => (
+            <FastImage
+              key={index}
+              resizeMode={FastImage.resizeMode.contain}
+              style={[
+                styles.logoSmall,
+                {borderColor: orderConfig?.badgeColorAlt},
+              ]}
+              source={{
+                uri: item,
+                priority: FastImage.priority.normal,
+              }}
+            />
+          ))}
+          {/* <FastImage
+            resizeMode={FastImage.resizeMode.contain}
+            style={[
+              styles.logoSmall,
+              {borderColor: orderConfig?.badgeColorAlt},
+            ]}
+            source={{
+              uri: sprites?.back_default,
+              priority: FastImage.priority.normal,
+            }}
+          />
+          <FastImage
+            resizeMode={FastImage.resizeMode.contain}
+            style={styles.logoSmall}
+            source={{
+              uri: sprites?.front_default,
+              priority: FastImage.priority.normal,
+            }}
+          />
+          <FastImage
+            resizeMode={FastImage.resizeMode.contain}
+            style={styles.logoSmall}
+            source={{
+              uri: sprites?.front_shiny,
+              priority: FastImage.priority.normal,
+            }}
+          /> */}
+        </View>
+        <View style={styles.powerPokemon}>
           {mapData.map((item, index) => {
             return (
               <View key={index} style={styles.containerProgressBar}>
@@ -104,6 +154,22 @@ const styles = StyleSheet.create({
     color: Colors.WHITE,
     fontWeight: Fonts.bold.fontWeight,
     marginTop: 20,
+  },
+  logoSmall: {
+    width: 80,
+    height: 80,
+    borderWidth: 1,
+    borderRadius: 5,
+  },
+  containerPositionImage: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+    paddingHorizontal: 30,
+  },
+  powerPokemon: {
+    paddingHorizontal: 15,
   },
 });
 

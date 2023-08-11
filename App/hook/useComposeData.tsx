@@ -1,7 +1,4 @@
-import React, {useEffect, useState} from 'react';
-import {useRecoilState} from 'recoil';
-import listData from '../recoil/getData';
-
+import {useState} from 'react';
 import getPokemonDetail from '../fetchApi/getPokemonDetail';
 import Colors from '../theme/colors';
 
@@ -11,12 +8,16 @@ type PropsGetData = Array<{
 }>;
 
 const useComposeData = () => {
-  const [data, setData] = useRecoilState(listData);
   const [temData, setTempData] = useState([]);
 
-  const composeData = async (props: PropsGetData) => {
-    const getDataPokemonDetail = async (getUrl: string) => {
+  const getDataPokemonDetail = async (getUrl: string) => {
+    try {
       const dataResult = await getPokemonDetail({url: getUrl});
+
+      if (!!dataResult?.errorStatus) {
+        throw new Error();
+      }
+
       const dataResultCustom = {
         name: dataResult?.forms[0]?.name,
         image: dataResult?.sprites?.other?.home?.front_default,
@@ -45,16 +46,33 @@ const useComposeData = () => {
       setTempData(prev => {
         return [...prev, dataResultCustom];
       });
-    };
 
+      return [dataResultCustom];
+    } catch (error) {
+      setTempData([]);
+      return {
+        errorMessage: error,
+        errorStatus: true,
+      };
+    }
+  };
+
+  const composeData = async (props: PropsGetData) => {
     props.map(item => {
       getDataPokemonDetail(item?.url);
     });
   };
 
+  const getDataPokemontByPokemonName = async (url: string) => {
+    const getData = await getDataPokemonDetail(url);
+    console.log('getData', getData)
+    return getData;
+  };
+
   return {
     composeData,
     temData,
+    getDataPokemontByPokemonName,
   };
 };
 

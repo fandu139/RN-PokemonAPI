@@ -2,17 +2,13 @@
 import fetchActionAPI from '.';
 
 const getPokemonDetail = async ({url}: {url: string}) => {
-  try {
-    const result = await fetchActionAPI({
-      url,
-      method: 'GET',
-      headers: {},
-    });
+  const result = await fetchActionAPI({
+    url,
+    method: 'GET',
+    headers: {},
+  });
 
-    return result;
-  } catch (err) {
-    console.log(err);
-  }
+  return result;
 };
 
 export default getPokemonDetail;
