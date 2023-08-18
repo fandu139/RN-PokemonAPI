@@ -1,13 +1,18 @@
 import React, {useCallback} from 'react';
 import {FlatList, RefreshControl, StyleSheet} from 'react-native';
+
 import {useRecoilState} from 'recoil';
+
 import OrderItem from './PokemonItem';
+
 import listData from '../../../recoil/getData';
 import pageData from '../../../recoil/getPage';
 import listDataFilter from '../../../recoil/getDataFilter';
-import AppStyles from '../../../theme/appStyles';
+
 import getPokemonList from '../../../fetchApi/getPokemonList';
 import useComposeData from '../../../hook/useComposeData';
+
+import AppStyles from '../../../theme/appStyles';
 import Spinner from '../../../uikit/Spinner';
 import Text from '../../../uikit/Text';
 

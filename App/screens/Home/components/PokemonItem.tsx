@@ -1,10 +1,12 @@
 import React from 'react';
 import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import FastImage from 'react-native-fast-image';
-import AppStyles from '../../../theme/appStyles';
-import Colors from '../../../theme/colors';
+
 import {navigate} from '../../../helper/navigation';
 import {getTypeCalor} from '../../../helper/typeColor';
+
+import AppStyles from '../../../theme/appStyles';
+import Colors from '../../../theme/colors';
 
 type Props = {
   item: {

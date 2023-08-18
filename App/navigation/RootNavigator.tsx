@@ -1,12 +1,15 @@
 import React, {ReactElement} from 'react';
+
 import {
   createNativeStackNavigator,
   NativeStackHeaderProps,
 } from '@react-navigation/native-stack';
-import Icon from '../uikit/Icon';
+
+import {ICON_BACK_ARROW} from '../assets/icon';
+
 import AppStyles from '../theme/appStyles';
 import Colors from '../theme/colors';
-import {ICON_BACK_ARROW} from '../assets/icon';
+import Icon from '../uikit/Icon';
 import Header from '../uikit/Header';
 
 const Root = createNativeStackNavigator();

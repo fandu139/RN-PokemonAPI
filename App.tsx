@@ -7,12 +7,12 @@
 
 import React, {useRef, useState} from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
+
 import {NavigationContainer} from '@react-navigation/native';
 import {NavigationState} from '@react-navigation/core';
 import {RecoilRoot} from 'recoil';
 
 import {navigationRef} from './App/helper/navigation';
-
 import AppSplashScreen from './App/screens/Splash';
 import RootNavigator from './App/navigation/RootNavigator';
 
