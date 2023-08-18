@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react';
+import React, {Suspense, lazy, useCallback, useEffect} from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import HomeHeader from './components/HomeHeader';
 import Colors from '../../theme/colors';
-import OrderListHome from './components/PokemonListHome';
 import Text from '../../uikit/Text';
 import getPokemonList from '../../fetchApi/getPokemonList';
 import useComposeData from '../../hook/useComposeData';
@@ -14,12 +14,22 @@ import Fonts from '../../theme/fonts';
 import AppStyles from '../../theme/appStyles';
 import Icon from '../../uikit/Icon';
 import {ICON_SEARCH} from '../../assets/icon';
+import Spinner from '../../uikit/Spinner';
 
-const HomeScreen = () => {
+const OrderListHome = lazy(() => import('./components/PokemonListHome'));
+
+type RootStackParamList = {
+  HomeScreen: undefined;
+};
+
+type Props = NativeStackScreenProps<RootStackParamList, 'HomeScreen'>;
+
+const HomeScreen: React.FC<Props> = () => {
   const [page, _setPage] = useRecoilState(pageData);
   const [data, setData] = useRecoilState(listData);
   const [_dataFilter, setDataFilter] = useRecoilState(listDataFilter);
   const [searchByFilter, setSearchByFilter] = React.useState('');
+  const [searchLoading, setSearchLoading] = React.useState(false);
 
   const {composeData, temData} = useComposeData();
 
@@ -48,16 +58,32 @@ const HomeScreen = () => {
 
     setDataFilter({
       isFilter: textSearch.length ? true : false,
-      dataFilter: result,
+      dataFilter: textSearch.length ? result : [],
     });
+    setSearchLoading(false);
   };
 
   const handleSearch = (text: string) => {
+    setSearchLoading(true);
     setSearchByFilter(text);
     setTimeout(() => {
       filtedData(text);
     }, 3000);
   };
+
+  const ShowlistPokemon = useCallback(() => {
+    return (
+      !searchLoading && (
+        <Suspense fallback={<Spinner />}>
+          <OrderListHome />
+        </Suspense>
+      )
+    );
+  }, [searchLoading]);
+
+  const ShowSpinner = useCallback(() => {
+    return searchLoading && <Spinner />;
+  }, [searchLoading]);
 
   return (
     <View
@@ -82,7 +108,8 @@ const HomeScreen = () => {
             />
           </View>
         </View>
-        <OrderListHome />
+        <ShowlistPokemon />
+        <ShowSpinner />
       </View>
     </View>
   );

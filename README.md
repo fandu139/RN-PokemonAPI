@@ -11,11 +11,12 @@ Tech Features:
 6. Recoil --> i'm use to state manegement
 
 ## Hooks and APIs Implementation
-- [X] useCallback
+- [X] useCallback i'm use on this file `App/screens/Home/components/PokemonListHome.tsx`
 - [X] useEffect
-- [X] useRef
+- [X] useRef i'm use on this file `App.tsx`
 - [X] useState
 - [X] memo --> i'm use on this file `App/screens/Home/components/PokemonItem.tsx`
+- [X] lazy --> i'm use on this file `App/screens/Home/index.tsx`
 
 ## Setup Environment
 First, setup your environment by following this guide on https://reactnative.dev/docs/environment-setup
