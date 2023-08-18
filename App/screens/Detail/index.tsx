@@ -7,12 +7,15 @@
 
 import React from 'react';
 import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
+
 import {ProgressBar} from '@react-native-community/progress-bar-android';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import FastImage from 'react-native-fast-image';
+
+import {getTypeCalor} from '../../helper/typeColor';
+
 import Colors from '../../theme/colors';
 import Fonts from '../../theme/fonts';
-import {getTypeCalor} from '../../helper/typeColor';
 
 type RouteParams = {
   image: string;

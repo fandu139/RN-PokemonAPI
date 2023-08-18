@@ -1,8 +1,10 @@
-import {POKEMON_BALL_LOGO} from '../../../assets/images';
-import Colors from '../../../theme/colors';
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
+
 import FastImage from 'react-native-fast-image';
+
+import {POKEMON_BALL_LOGO} from '../../../assets/images';
+import Colors from '../../../theme/colors';
 
 const HomeHeader = ({headerBarAction}: {headerBarAction?: React.ReactNode}) => {
   return (

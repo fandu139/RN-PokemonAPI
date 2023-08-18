@@ -1,20 +1,26 @@
 import React, {Suspense, lazy, useCallback, useEffect} from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
+
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import HomeHeader from './components/HomeHeader';
-import Colors from '../../theme/colors';
-import Text from '../../uikit/Text';
-import getPokemonList from '../../fetchApi/getPokemonList';
-import useComposeData from '../../hook/useComposeData';
-import pageData from '../../recoil/getPage';
 import {useRecoilState} from 'recoil';
-import listData from '../../recoil/getData';
+
+import HomeHeader from './components/HomeHeader';
+
+import {ICON_SEARCH} from '../../assets/icon';
+
 import listDataFilter from '../../recoil/getDataFilter';
+import listData from '../../recoil/getData';
+import pageData from '../../recoil/getPage';
+
+import useComposeData from '../../hook/useComposeData';
+import getPokemonList from '../../fetchApi/getPokemonList';
+
+import Text from '../../uikit/Text';
+import Icon from '../../uikit/Icon';
+import Spinner from '../../uikit/Spinner';
+import Colors from '../../theme/colors';
 import Fonts from '../../theme/fonts';
 import AppStyles from '../../theme/appStyles';
-import Icon from '../../uikit/Icon';
-import {ICON_SEARCH} from '../../assets/icon';
-import Spinner from '../../uikit/Spinner';
 
 const OrderListHome = lazy(() => import('./components/PokemonListHome'));
 
