@@ -3,8 +3,6 @@ import {
   createNativeStackNavigator,
   NativeStackHeaderProps,
 } from '@react-navigation/native-stack';
-import HomeScreen from '../screens/Home';
-import DetailScreen from '../screens/Detail';
 import Icon from '../uikit/Icon';
 import AppStyles from '../theme/appStyles';
 import Colors from '../theme/colors';
@@ -13,6 +11,26 @@ import Header from '../uikit/Header';
 
 const Root = createNativeStackNavigator();
 
+const customHeader = (props: NativeStackHeaderProps) => {
+  const {navigation, options} = props;
+
+  return (
+    <Header
+      title={options.title || ''}
+      leftButton={
+        <Icon
+          style={AppStyles.headerLeftIcon}
+          size={16}
+          color={Colors.WHITE}
+          name={ICON_BACK_ARROW}
+          onPress={navigation.goBack}
+          testID="header-back-button"
+        />
+      }
+    />
+  );
+};
+
 function RootNavigator(): ReactElement {
   const defaultHeaderOptions = {};
 
@@ -20,36 +38,18 @@ function RootNavigator(): ReactElement {
     <Root.Navigator
       screenOptions={{
         ...defaultHeaderOptions,
-        header: (props: NativeStackHeaderProps) => {
-          const {navigation, options} = props;
-
-          return (
-            <Header
-              title={options.title}
-              leftButton={
-                <Icon
-                  style={AppStyles.headerLeftIcon}
-                  size={16}
-                  color={Colors.WHITE}
-                  name={ICON_BACK_ARROW}
-                  onPress={navigation.goBack}
-                  testID="header-back-button"
-                />
-              }
-            />
-          );
-        },
+        header: customHeader,
       }}
       initialRouteName="HomeScreen">
       <Root.Screen
         options={{headerShown: false}}
         name="HomeScreen"
-        component={HomeScreen}
+        getComponent={() => require('../screens/Home').default}
       />
       <Root.Screen
         options={{title: 'Detail Screen'}}
         name="DetailScreen"
-        component={DetailScreen}
+        getComponent={() => require('../screens/Detail').default}
       />
     </Root.Navigator>
   );
